@@ -4,6 +4,7 @@
 /bin/*
 /dist/*
 /docs/*
+/uml/*
 
 .actionScriptProperties
 .flexProperties
@@ -13,6 +14,7 @@
 .sourceMate
 .sourceMateMetadataSettings
 setEnv.sh
+asblocks.as3proj
 
 Icon
 Thumbs.db
