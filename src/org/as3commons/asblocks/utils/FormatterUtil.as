@@ -20,10 +20,10 @@
 package org.as3commons.asblocks.utils
 {
 
-import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.api.IScriptNode;
 import org.as3commons.asblocks.impl.TokenBuilder;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
+import org.as3commons.asblocks.parser.api.IParserNode;
 
 /**
  * @private
@@ -38,7 +38,7 @@ public class FormatterUtil
 												kind:String, 
 												breakIt:Boolean):void
 	{
-		var paren:LinkedListToken = findFirstToken(element.node, kind);
+		var paren:ILinkedListToken = findFirstToken(element.node, kind);
 		
 		// to do this both ways
 		// - find the paren
@@ -56,9 +56,9 @@ public class FormatterUtil
 
 	}
 	
-	public static function findFirstToken(ast:IParserNode, kind:String):LinkedListToken
+	public static function findFirstToken(ast:IParserNode, kind:String):ILinkedListToken
 	{
-		for (var tok:LinkedListToken = ast.startToken; tok != null; tok = tok.next)
+		for (var tok:ILinkedListToken = ast.startToken; tok != null; tok = tok.next)
 		{
 			if (tok.kind == kind)
 				return tok;
@@ -70,7 +70,7 @@ public class FormatterUtil
 		return null;
 	}
 	
-	public static function appendNewlines(ast:IParserNode, token:LinkedListToken, count:int):void
+	public static function appendNewlines(ast:IParserNode, token:ILinkedListToken, count:int):void
 	{
 		var indent:String = ASTUtil.findIndent(ast);
 		var len:int = count;

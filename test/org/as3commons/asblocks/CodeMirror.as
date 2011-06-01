@@ -1,15 +1,15 @@
 package org.as3commons.asblocks
 {
 
-import org.flexunit.Assert;
-import org.flexunit.asserts.assertEquals;
+import org.as3commons.asblocks.api.ICompilationUnit;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.SourceCode;
 import org.as3commons.asblocks.parser.core.TokenNode;
 import org.as3commons.asblocks.parser.impl.ASTIterator;
-import org.as3commons.asblocks.api.ICompilationUnit;
+import org.flexunit.Assert;
+import org.flexunit.asserts.assertEquals;
 
 public class CodeMirror
 {
@@ -76,13 +76,13 @@ public class CodeMirror
 		}
 	}
 	
-	public static function assertTokenStreamNotDisjoint(ast:IParserNode):Vector.<LinkedListToken>
+	public static function assertTokenStreamNotDisjoint(ast:IParserNode):Vector.<ILinkedListToken>
 	{
-		var tokensFromStartToStop:Vector.<LinkedListToken> = tokenStreamToSet(ast);
+		var tokensFromStartToStop:Vector.<ILinkedListToken> = tokenStreamToSet(ast);
 		for (var i:int=0; i<ast.numChildren; i++)
 		{
 			var child:IParserNode = ast.getChild(i);
-			var childTokens:Vector.<LinkedListToken> = assertTokenStreamNotDisjoint(child);
+			var childTokens:Vector.<ILinkedListToken> = assertTokenStreamNotDisjoint(child);
 			Assert.assertTrue("'"+child+"' (child "+i+" of '"+ast+
 				"') had a token stream disjoint with its parent",
 				containsAll(tokensFromStartToStop, childTokens));
@@ -91,8 +91,8 @@ public class CodeMirror
 		return tokensFromStartToStop;
 	}
 	
-	private static function containsAll(one:Vector.<LinkedListToken>, 
-										two:Vector.<LinkedListToken>):Boolean
+	private static function containsAll(one:Vector.<ILinkedListToken>, 
+										two:Vector.<ILinkedListToken>):Boolean
 	{
 		var test:Array = [];
 		var len:int = one.length;
@@ -113,11 +113,11 @@ public class CodeMirror
 		return two.length == test.length;
 	}
 	
-	private static function tokenStreamToSet(ast:IParserNode):Vector.<LinkedListToken>
+	private static function tokenStreamToSet(ast:IParserNode):Vector.<ILinkedListToken>
 	{
-		var tokens:Vector.<LinkedListToken> = new Vector.<LinkedListToken>();
+		var tokens:Vector.<ILinkedListToken> = new Vector.<ILinkedListToken>();
 		
-		var tok:LinkedListToken = ast.startToken;
+		var tok:ILinkedListToken = ast.startToken;
 		while (tok != null)
 		{
 			tokens.push(tok);
@@ -173,8 +173,8 @@ public class CodeMirror
 	
 	private static function saintyCheckTokenStream(ast:IParserNode):void
 	{
-		var last:LinkedListToken = null;
-		for (var tok:LinkedListToken=ast.startToken; tok!=null; tok=tok.next)
+		var last:ILinkedListToken = null;
+		for (var tok:ILinkedListToken=ast.startToken; tok!=null; tok=tok.next)
 		{
 			if (last != null && last != tok.previous)
 			{
@@ -195,10 +195,10 @@ public class CodeMirror
 	
 	private static function assertStopNotBeforeStart(ast:IParserNode):void
 	{
-		var start:LinkedListToken = ast.startToken;
-		var stop:LinkedListToken = ast.stopToken;
+		var start:ILinkedListToken = ast.startToken;
+		var stop:ILinkedListToken = ast.stopToken;
 		if (stop == start) return;
-		for (var tok:LinkedListToken=stop; tok!=null; tok=tok.next)
+		for (var tok:ILinkedListToken=stop; tok!=null; tok=tok.next)
 		{
 			Assert.assertFalse("Found stopToken preceeding startToken: "+ast+"("+start+" - "+stop+")",
 				tok==start);

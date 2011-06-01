@@ -2,6 +2,7 @@ package org.as3commons.asblocks.impl
 {
 
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.KeyWords;
 import org.as3commons.asblocks.parser.core.LinkedListToken;
@@ -102,7 +103,7 @@ public class ASTLiteralBuilder
 		ast.addChild(paren);
 		// added, best practices say put :void as default
 		
-		var colon:LinkedListToken = TokenBuilder.newColon();
+		var colon:ILinkedListToken = TokenBuilder.newColon();
 		var typeAST:IParserNode = AS3FragmentParser.parseType("void");
 		typeAST.startToken.prepend(colon);
 		typeAST.startToken = colon;

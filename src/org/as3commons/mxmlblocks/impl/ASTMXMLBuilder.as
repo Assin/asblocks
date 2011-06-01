@@ -7,9 +7,9 @@ import org.as3commons.asblocks.impl.ASTBuilder;
 import org.as3commons.asblocks.impl.ASTTypeBuilder;
 import org.as3commons.asblocks.impl.ApplicationUnitNode;
 import org.as3commons.asblocks.impl.TokenBuilder;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.IToken;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.ParentheticListUpdateDelegate;
 import org.as3commons.asblocks.parser.core.TokenNode;
 import org.as3commons.asblocks.parser.impl.AS3FragmentParser;
@@ -50,13 +50,13 @@ public class ASTMXMLBuilder
 		ast.appendToken(TokenBuilder.newToken("xmlns", "xmlns"));
 		if (localName)
 		{
-			var colon:LinkedListToken = TokenBuilder.newColon();
+			var colon:ILinkedListToken = TokenBuilder.newColon();
 			var name:IParserNode = ASTBuilder.newAST(MXMLNodeKind.LOCAL_NAME, localName);
 			name.startToken.prepend(colon);
 			name.startToken = colon;
 			ast.addChild(name);
 		}
-		var assign:LinkedListToken = TokenBuilder.newAssign();
+		var assign:ILinkedListToken = TokenBuilder.newAssign();
 		var uriAST:IParserNode = ASTBuilder.newAST(MXMLNodeKind.URI, uri);
 		uriAST.startToken.prepend(assign);
 		uriAST.startToken = assign;
@@ -74,7 +74,7 @@ public class ASTMXMLBuilder
 		
 		if (state)
 		{
-			var dot:LinkedListToken = TokenBuilder.newDot();
+			var dot:ILinkedListToken = TokenBuilder.newDot();
 			var stateAST:IParserNode = ASTBuilder.newAST(MXMLNodeKind.STATE, state);
 			stateAST.startToken.prepend(dot);
 			stateAST.startToken = dot;
@@ -235,13 +235,13 @@ public class ASTMXMLBuilder
 	
 	public static function newXMLComment(ast:IParserNode, text:String):IToken
 	{
-		var comment:LinkedListToken = TokenBuilder.newSLComment("<!-- " + text + "-->");
+		var comment:ILinkedListToken = TokenBuilder.newSLComment("<!-- " + text + "-->");
 		var indent:String = ASTUtil.findIndentForComment(ast);
-		var stop:LinkedListToken = ASTUtil.findTagStop(ast).previous; // nl
+		var stop:ILinkedListToken = ASTUtil.findTagStop(ast).previous; // nl
 		
-		var nl:LinkedListToken = TokenBuilder.newNewline();
+		var nl:ILinkedListToken = TokenBuilder.newNewline();
 		stop.prepend(nl);
-		var sp:LinkedListToken = TokenBuilder.newWhiteSpace(indent + "\t");
+		var sp:ILinkedListToken = TokenBuilder.newWhiteSpace(indent + "\t");
 		nl.append(sp);
 		sp.append(comment);
 		

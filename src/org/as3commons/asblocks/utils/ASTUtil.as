@@ -28,11 +28,11 @@ import org.as3commons.asblocks.impl.ASTBuilder;
 import org.as3commons.asblocks.impl.ASTPrinter;
 import org.as3commons.asblocks.impl.TokenBuilder;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParser;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.ISourceCode;
 import org.as3commons.asblocks.parser.api.IToken;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.LinkedListTreeAdaptor;
 import org.as3commons.asblocks.parser.core.SourceCode;
 import org.as3commons.asblocks.parser.core.Token;
@@ -66,7 +66,7 @@ public class ASTUtil
 		return child;
 	}
 	
-	public static function findTagStart(ast:IParserNode):LinkedListToken
+	public static function findTagStart(ast:IParserNode):ILinkedListToken
 	{
 		if (ast == null)
 			return null;
@@ -81,7 +81,7 @@ public class ASTUtil
 			startAST = getLastTagList(ast);
 		}
 		
-		var tok:LinkedListToken = startAST.startToken;
+		var tok:ILinkedListToken = startAST.startToken;
 		while (tok.text != ">")
 		{
 			if (tok.next == null) 
@@ -94,7 +94,7 @@ public class ASTUtil
 		return tok;
 	}
 	
-	public static function findTagStop(ast:IParserNode):LinkedListToken
+	public static function findTagStop(ast:IParserNode):ILinkedListToken
 	{
 		if (ast == null)
 			return null;
@@ -109,7 +109,7 @@ public class ASTUtil
 			endAST = getLastTagList(ast);
 		}
 		
-		var tok:LinkedListToken = endAST.stopToken;
+		var tok:ILinkedListToken = endAST.stopToken;
 		while (tok.text != "</")
 		{
 			if (tok.previous == null) 
@@ -127,7 +127,7 @@ public class ASTUtil
 		if (node == null)
 			return "";
 		
-		var tok:LinkedListToken = node.startToken;
+		var tok:ILinkedListToken = node.startToken;
 		tok = tok.next;
 		if (!tok)
 		{
@@ -162,7 +162,7 @@ public class ASTUtil
 			return "";
 		}
 		
-		var startOfLine:LinkedListToken = tok.next;
+		var startOfLine:ILinkedListToken = tok.next;
 		
 		if (startOfLine.kind == AS3NodeKind.WS)
 		{
@@ -173,7 +173,7 @@ public class ASTUtil
 	
 	public static function findIndent(node:IParserNode):String
 	{
-		var tok:LinkedListToken = node.startToken;
+		var tok:ILinkedListToken = node.startToken;
 		if (!tok)
 		{
 			return findIndent(node.parent);
@@ -207,7 +207,7 @@ public class ASTUtil
 			return "";
 		}
 		
-		var startOfLine:LinkedListToken = tok.next;
+		var startOfLine:ILinkedListToken = tok.next;
 		
 		if (startOfLine.kind == AS3NodeKind.WS)
 		{
@@ -256,9 +256,9 @@ public class ASTUtil
 											 endText:String):IParserNode
 	{
 		var ast:IParserNode = ASTBuilder.newAST(kind);
-		var start:LinkedListToken = TokenBuilder.newToken(startKind, startText);
+		var start:ILinkedListToken = TokenBuilder.newToken(startKind, startText);
 		ast.startToken = start;
-		var stop:LinkedListToken = TokenBuilder.newToken(endKind, endText);
+		var stop:ILinkedListToken = TokenBuilder.newToken(endKind, endText);
 		ast.stopToken = stop;
 		start.next = stop;
 		ast.initialInsertionAfter = start;
@@ -267,7 +267,7 @@ public class ASTUtil
 	
 	public static function increaseIndent(node:IParserNode, indent:String):void
 	{
-		var newStart:LinkedListToken = increaseIndentAt(node.startToken, indent);
+		var newStart:ILinkedListToken = increaseIndentAt(node.startToken, indent);
 		node.startToken = newStart;
 		increaseIndentAfterFirstLine(node, indent);
 	}
@@ -275,7 +275,7 @@ public class ASTUtil
 	
 	public static function increaseIndentAfterFirstLine(node:IParserNode, indent:String):void
 	{
-		for (var tok:LinkedListToken = node.startToken ; tok != node.stopToken; tok = tok.next)
+		for (var tok:ILinkedListToken = node.startToken ; tok != node.stopToken; tok = tok.next)
 		{
 			switch (tok.kind)
 			{
@@ -289,7 +289,7 @@ public class ASTUtil
 		}
 	}
 	
-	private static function increaseIndentAt(tok:LinkedListToken, indentStr:String):LinkedListToken
+	private static function increaseIndentAt(tok:ILinkedListToken, indentStr:String):ILinkedListToken
 	{
 		if (tok.kind == AS3NodeKind.WS) 
 		{
@@ -297,13 +297,13 @@ public class ASTUtil
 			return tok;
 		}
 		
-		var indent:LinkedListToken = TokenBuilder.newWhiteSpace(indentStr);
+		var indent:ILinkedListToken = TokenBuilder.newWhiteSpace(indentStr);
 		tok.prepend(indent);
 		
 		return indent;
 	}
 	
-	public static function collapseWhitespace(startToken:LinkedListToken):void
+	public static function collapseWhitespace(startToken:ILinkedListToken):void
 	{
 		// takes 2 tokens like "  " to " "
 		if (startToken.channel == AS3NodeKind.HIDDEN 
@@ -313,10 +313,10 @@ public class ASTUtil
 		}
 	}
 	
-	public static function removeTrailingWhitespaceAndComma(stopToken:LinkedListToken, 
+	public static function removeTrailingWhitespaceAndComma(stopToken:ILinkedListToken, 
 															trim:Boolean = false):void
 	{
-		for (var tok:LinkedListToken = stopToken.next; tok != null; tok = tok.next)
+		for (var tok:ILinkedListToken = stopToken.next; tok != null; tok = tok.next)
 		{
 			if (tok.channel == AS3NodeKind.HIDDEN)
 			{
@@ -342,7 +342,7 @@ public class ASTUtil
 	public static function printNode(ast:IParserNode):String
 	{
 		var result:String = "";
-		for (var tok:LinkedListToken = ast.startToken; tok != null; tok = tok.next)
+		for (var tok:ILinkedListToken = ast.startToken; tok != null; tok = tok.next)
 		{
 			result += tok.text;
 			if (tok == ast.stopToken)
@@ -357,7 +357,7 @@ public class ASTUtil
 	
 
 	
-	public static function newTokenAST(token:LinkedListToken):IParserNode
+	public static function newTokenAST(token:ILinkedListToken):IParserNode
 	{
 		return adapter.createNode(token);
 	}
@@ -399,13 +399,13 @@ public class ASTUtil
 	}
 	
 	
-	public static function removePreceedingWhitespaceAndComma(startToken:LinkedListToken):void
+	public static function removePreceedingWhitespaceAndComma(startToken:ILinkedListToken):void
 	{
-		for (var tok:LinkedListToken = startToken.previous; tok != null; tok = tok.previous)
+		for (var tok:ILinkedListToken = startToken.previous; tok != null; tok = tok.previous)
 		{
 			if (tok.channel == AS3NodeKind.HIDDEN) 
 			{
-				var del:LinkedListToken = tok;
+				var del:ILinkedListToken = tok;
 				tok = tok.next;
 				del.remove();
 				continue;
@@ -631,7 +631,7 @@ public class ASTUtil
 	public static function stringifyNode(ast:IParserNode):String
 	{
 		var result:String = "";
-		for (var tok:LinkedListToken =  ast.startToken; tok != null && tok.kind != null; tok = tok.next)
+		for (var tok:ILinkedListToken =  ast.startToken; tok != null && tok.kind != null; tok = tok.next)
 		{
 			if (tok.text != null)
 			{
@@ -769,14 +769,14 @@ public class ASTUtil
 	public static function removeComment(ast:IParserNode):IToken
 	{
 		// nl, sl-comment, ws, nl
-		var comment:LinkedListToken = getComment(ast);
+		var comment:ILinkedListToken = getComment(ast);
 		if (!comment)
 		{
 			return null;
 		}
 		
-		var ws:LinkedListToken = comment.previous;
-		var nl:LinkedListToken = ws.previous;
+		var ws:ILinkedListToken = comment.previous;
+		var nl:ILinkedListToken = ws.previous;
 		
 		nl.remove();
 		ws.remove();
@@ -785,9 +785,9 @@ public class ASTUtil
 		return comment;
 	}
 	
-	private static function getComment(ast:IParserNode):LinkedListToken
+	private static function getComment(ast:IParserNode):ILinkedListToken
 	{
-		for (var tok:LinkedListToken =  ast.startToken; tok != null; tok = tok.previous)
+		for (var tok:ILinkedListToken =  ast.startToken; tok != null; tok = tok.previous)
 		{
 			if (tok.kind == "sl-comment")
 				return tok;

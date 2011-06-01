@@ -26,8 +26,8 @@ import org.as3commons.asblocks.api.IFinallyClause;
 import org.as3commons.asblocks.api.IStatementContainer;
 import org.as3commons.asblocks.api.ITryStatement;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.impl.ASTIterator;
 import org.as3commons.asblocks.utils.ASTUtil;
 
@@ -130,7 +130,7 @@ public class TryStatementNode extends ContainerDelegate
 	{
 		var ast:IParserNode = ASTStatementBuilder.newCatchClause(name, type);
 		
-		var space:LinkedListToken = TokenBuilder.newSpace();
+		var space:ILinkedListToken = TokenBuilder.newSpace();
 		// add a space before the catch keyword
 		ast.startToken.prepend(space);
 		// set the start of the chain to the space

@@ -2,6 +2,7 @@ package org.as3commons.asblocks.parser.core
 {
 
 import org.as3commons.asblocks.parser.api.ASDocNodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 
 public class ASDocLinkedListTreeAdaptor extends LinkedListTreeAdaptor
 {
@@ -10,7 +11,7 @@ public class ASDocLinkedListTreeAdaptor extends LinkedListTreeAdaptor
 		super();
 	}
 	
-	override public function createNode(payload:LinkedListToken):TokenNode 
+	override public function createNode(payload:ILinkedListToken):TokenNode 
 	{
 		var result:TokenNode = new TokenNode(
 			payload.kind, 

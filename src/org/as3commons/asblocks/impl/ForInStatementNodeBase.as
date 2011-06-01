@@ -20,13 +20,13 @@
 package org.as3commons.asblocks.impl
 {
 
-import org.as3commons.asblocks.parser.api.AS3NodeKind;
-import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.api.IExpression;
 import org.as3commons.asblocks.api.IForInStatement;
 import org.as3commons.asblocks.api.IScriptNode;
 import org.as3commons.asblocks.api.IStatementContainer;
+import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
+import org.as3commons.asblocks.parser.api.IParserNode;
 
 /**
  * @author Michael Schmalle
@@ -79,10 +79,10 @@ public class ForInStatementNodeBase extends ContainerDelegate
 		}
 		else if (value)
 		{
-			var last:LinkedListToken = value.node.stopToken;
+			var last:ILinkedListToken = value.node.stopToken;
 			if (last.text == ";")
 			{
-				var prev:LinkedListToken = last.previous;
+				var prev:ILinkedListToken = last.previous;
 				last.remove();
 				value.node.stopToken = prev;
 			}

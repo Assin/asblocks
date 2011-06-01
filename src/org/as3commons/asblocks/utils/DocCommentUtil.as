@@ -31,8 +31,8 @@ import org.as3commons.asblocks.impl.DocTagNode;
 import org.as3commons.asblocks.impl.TokenBuilder;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
 import org.as3commons.asblocks.parser.api.ASDocNodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.TokenNode;
 import org.as3commons.asblocks.parser.impl.AS3Parser;
 import org.as3commons.asblocks.parser.impl.ASDocFragmentParser;
@@ -106,7 +106,7 @@ public class DocCommentUtil
 		parent.addChildAt(ast, index);
 		TokenNode(parent).absolute = false;
 		
-		var token:LinkedListToken = TokenBuilder.newMLComment(text);
+		var token:ILinkedListToken = TokenBuilder.newMLComment(text);
 		ast.startToken.prepend(token);
 		
 		//token.append(TokenBuilder.newNewline());
@@ -174,14 +174,14 @@ public class DocCommentUtil
 		{
 			asdoc.stringValue = "/**" + description + "\n" + indent + " */";
 			asdoc.startToken.text = null;
-			var atok:LinkedListToken = getASDocToken(asdoc);
+			var atok:ILinkedListToken = getASDocToken(asdoc);
 			atok.text = asdoc.stringValue;
 		}
 	}
 	
-	public static function getASDocToken(asdoc:IParserNode):LinkedListToken
+	public static function getASDocToken(asdoc:IParserNode):ILinkedListToken
 	{
-		for (var tok:LinkedListToken =  asdoc.startToken; tok != null; tok = tok.previous)
+		for (var tok:ILinkedListToken =  asdoc.startToken; tok != null; tok = tok.previous)
 		{
 			if (tok.kind == AS3NodeKind.ML_COMMENT)
 				return tok;
@@ -206,14 +206,14 @@ public class DocCommentUtil
 	public static function appendNewline(parent:IParserNode, ast:IParserNode):void
 	{
 		var indent:String = ASTUtil.findIndent(parent);
-		var indentTok:LinkedListToken = TokenBuilder.newWhiteSpace(indent);
+		var indentTok:ILinkedListToken = TokenBuilder.newWhiteSpace(indent);
 		ast.appendToken(TokenBuilder.newNewline());
 		ast.appendToken(indentTok);
 	}
 	
 	public static function findNewline(ast:IParserNode):String
 	{
-		var tok:LinkedListToken = ast.stopToken;
+		var tok:ILinkedListToken = ast.stopToken;
 		if (tok.text == "\n")
 		{
 			// Skip the very-last NL, since this will precede the
@@ -236,7 +236,7 @@ public class DocCommentUtil
 	{
 		var result:String = "";
 		
-		var tok:LinkedListToken = ast.startToken;
+		var tok:ILinkedListToken = ast.startToken;
 		while (tok != null && tok.kind != null)
 		{
 			if (tok.text != null 
@@ -286,7 +286,7 @@ public class DocCommentUtil
 			
 			//var i:String = ASTUtil.findIndent(node);
 			//var newline:String = DocCommentUtil.getNewlineText(node, list);
-			//var ws:LinkedListToken = TokenBuilder.newWhiteSpace("\n" + i + " * ");
+			//var ws:ILinkedListToken = TokenBuilder.newWhiteSpace("\n" + i + " * ");
 			//list.startToken.prepend(ws);
 			//list.startToken = ws;
 		}
@@ -358,7 +358,7 @@ public class DocCommentUtil
 		ast.stringValue = result;
 		ast.startToken.text = null;
 		
-		var tok:LinkedListToken = DocCommentUtil.getASDocToken(ast);
+		var tok:ILinkedListToken = DocCommentUtil.getASDocToken(ast);
 		tok.text = result;
 	}
 	

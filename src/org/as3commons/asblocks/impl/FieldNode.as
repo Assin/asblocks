@@ -24,8 +24,8 @@ import org.as3commons.asblocks.ASBlocksSyntaxError;
 import org.as3commons.asblocks.api.IExpression;
 import org.as3commons.asblocks.api.IField;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.TokenNode;
 import org.as3commons.asblocks.parser.impl.ASTIterator;
 import org.as3commons.asblocks.utils.ASTUtil;
@@ -133,7 +133,7 @@ public class FieldNode extends MemberNode
 			return;
 		}
 		
-		var node:LinkedListToken;
+		var node:ILinkedListToken;
 		if (value) 
 		{
 			node = TokenBuilder.newConst();

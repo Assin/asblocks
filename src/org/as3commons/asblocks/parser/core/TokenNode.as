@@ -20,6 +20,7 @@
 package org.as3commons.asblocks.parser.core
 {
 
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 
 /**
@@ -46,12 +47,12 @@ public class TokenNode extends Node
 	/**
 	 * @private
 	 */
-	private var _token:LinkedListToken;
+	private var _token:ILinkedListToken;
 	
 	/**
 	 * doc
 	 */
-	public function get token():LinkedListToken
+	public function get token():ILinkedListToken
 	{
 		return _token;
 	}
@@ -59,7 +60,7 @@ public class TokenNode extends Node
 	/**
 	 * @private
 	 */	
-	public function set token(value:LinkedListToken):void
+	public function set token(value:ILinkedListToken):void
 	{
 		_token = value;
 	}
@@ -120,7 +121,7 @@ public class TokenNode extends Node
 	 * list of children.
 	 */
 	internal function notifyChildStartTokenChange(child:IParserNode, 
-												  newStart:LinkedListToken):void
+												  newStart:ILinkedListToken):void
 	{
 		if (isFirst(child) && isSameStartToken(child)) 
 		{
@@ -136,7 +137,7 @@ public class TokenNode extends Node
 	 * list of children.
 	 */
 	internal function notifyChildStopTokenChange(child:IParserNode, 
-												 newStop:LinkedListToken):void
+												 newStop:ILinkedListToken):void
 	{
 		if (isLast(child) && (isSameStopToken(child) || isNoStopToken(child)))
 		{

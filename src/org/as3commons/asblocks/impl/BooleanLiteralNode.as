@@ -20,12 +20,12 @@
 package org.as3commons.asblocks.impl
 {
 
+import org.as3commons.asblocks.api.IBooleanLiteral;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.KeyWords;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.TokenNode;
-import org.as3commons.asblocks.api.IBooleanLiteral;
 
 /**
  * The <code>IBooleanLiteral</code> implementation.
@@ -59,7 +59,7 @@ public class BooleanLiteralNode extends LiteralNode implements IBooleanLiteral
 	 */
 	public function set value(value:Boolean):void
 	{
-		var token:LinkedListToken = TokenNode(node).token;
+		var token:ILinkedListToken = TokenNode(node).token;
 		if (value)
 		{
 			node.kind = AS3NodeKind.TRUE;

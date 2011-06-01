@@ -20,6 +20,7 @@
 package org.as3commons.asblocks.parser.core
 {
 
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 
 /**
@@ -171,12 +172,12 @@ public class Node extends NestedNode implements IParserNode
 	/**
 	 * @private
 	 */
-	private var _startToken:LinkedListToken;
+	private var _startToken:ILinkedListToken;
 	
 	/**
 	 * @copy org.as3commons.as3parser.api.IParserNode#startToken
 	 */
-	public function get startToken():LinkedListToken
+	public function get startToken():ILinkedListToken
 	{
 		return _startToken;
 	}
@@ -184,7 +185,7 @@ public class Node extends NestedNode implements IParserNode
 	/**
 	 * @private
 	 */	
-	public function set startToken(value:LinkedListToken):void
+	public function set startToken(value:ILinkedListToken):void
 	{
 		if (parent)
 			TokenNode(parent).notifyChildStartTokenChange(this, value);
@@ -199,12 +200,12 @@ public class Node extends NestedNode implements IParserNode
 	/**
 	 * @private
 	 */
-	private var _stopToken:LinkedListToken;
+	private var _stopToken:ILinkedListToken;
 	
 	/**
 	 * @copy org.as3commons.as3parser.api.IParserNode#stopToken
 	 */
-	public function get stopToken():LinkedListToken
+	public function get stopToken():ILinkedListToken
 	{
 		return _stopToken;
 	}
@@ -212,7 +213,7 @@ public class Node extends NestedNode implements IParserNode
 	/**
 	 * @private
 	 */	
-	public function set stopToken(value:LinkedListToken):void
+	public function set stopToken(value:ILinkedListToken):void
 	{
 		if (parent)
 			TokenNode(parent).notifyChildStopTokenChange(this, value);
@@ -227,12 +228,12 @@ public class Node extends NestedNode implements IParserNode
 	/**
 	 * @private
 	 */
-	private var _initialInsertionAfter:LinkedListToken;
+	private var _initialInsertionAfter:ILinkedListToken;
 	
 	/**
 	 * @copy org.as3commons.as3parser.api.IParserNode#initialInsertionAfter
 	 */
-	public function get initialInsertionAfter():LinkedListToken
+	public function get initialInsertionAfter():ILinkedListToken
 	{
 		return _initialInsertionAfter;
 	}
@@ -240,7 +241,7 @@ public class Node extends NestedNode implements IParserNode
 	/**
 	 * @private
 	 */	
-	public function set initialInsertionAfter(value:LinkedListToken):void
+	public function set initialInsertionAfter(value:ILinkedListToken):void
 	{
 		_initialInsertionAfter = value;
 	}
@@ -252,12 +253,12 @@ public class Node extends NestedNode implements IParserNode
 	/**
 	 * @private
 	 */
-	private var _initialInsertionBefore:LinkedListToken;
+	private var _initialInsertionBefore:ILinkedListToken;
 	
 	/**
 	 * @copy org.as3commons.as3parser.api.IParserNode#initialInsertionBefore
 	 */
-	public function get initialInsertionBefore():LinkedListToken
+	public function get initialInsertionBefore():ILinkedListToken
 	{
 		return _initialInsertionBefore;
 	}
@@ -265,7 +266,7 @@ public class Node extends NestedNode implements IParserNode
 	/**
 	 * @private
 	 */	
-	public function set initialInsertionBefore(value:LinkedListToken):void
+	public function set initialInsertionBefore(value:ILinkedListToken):void
 	{
 		_initialInsertionBefore = value;
 	}

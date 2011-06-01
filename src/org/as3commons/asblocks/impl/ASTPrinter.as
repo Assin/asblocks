@@ -1,6 +1,7 @@
 package org.as3commons.asblocks.impl
 {
 
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.ISourceCode;
 import org.as3commons.asblocks.parser.core.LinkedListToken;
@@ -17,24 +18,24 @@ public class ASTPrinter
 	
 	public function print(ast:IParserNode):void
 	{
-		for (var tok:LinkedListToken = findStart(ast); tok != null; tok = tok.next)
+		for (var tok:ILinkedListToken = findStart(ast); tok != null; tok = tok.next)
 		{
 			printLn(tok);
 		}
 	}
 	
-	private function findStart(ast:IParserNode):LinkedListToken
+	private function findStart(ast:IParserNode):ILinkedListToken
 	{
-		var result:LinkedListToken = null;
+		var result:ILinkedListToken = null;
 		
-		for (var tok:LinkedListToken = ast.startToken; viable(tok); tok = tok.previous)
+		for (var tok:ILinkedListToken = ast.startToken; viable(tok); tok = tok.previous)
 		{
 			result = tok;
 		}
 		return result;
 	}
 	
-	private function printLn(token:LinkedListToken):void
+	private function printLn(token:ILinkedListToken):void
 	{
 		if (!sourceCode.code)
 			sourceCode.code = "";
@@ -43,7 +44,7 @@ public class ASTPrinter
 			sourceCode.code += token.text;
 	}
 	
-	private function viable(token:LinkedListToken):Boolean
+	private function viable(token:ILinkedListToken):Boolean
 	{
 		return token != null && token.kind != "__END__";
 	}

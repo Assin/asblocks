@@ -20,8 +20,6 @@
 package org.as3commons.asblocks.parser.api
 {
 
-import org.as3commons.asblocks.parser.core.LinkedListToken;
-
 /**
  * The <strong>IParserNode</strong> interface marks a class as having the
  * ability to be placed in an AST parse tree with tokens.
@@ -153,12 +151,12 @@ public interface IParserNode
 	/**
 	 * The token this nodes stops at in the token stream.
 	 */
-	function get stopToken():LinkedListToken;
+	function get stopToken():ILinkedListToken;
 	
 	/**
 	 * @private
 	 */
-	function set stopToken(value:LinkedListToken):void;
+	function set stopToken(value:ILinkedListToken):void;
 	
 	//----------------------------------
 	//  startToken
@@ -167,12 +165,12 @@ public interface IParserNode
 	/**
 	 * The token this nodes starts at in the token stream.
 	 */
-	function get startToken():LinkedListToken;
+	function get startToken():ILinkedListToken;
 	
 	/**
 	 * @private
 	 */
-	function set startToken(value:LinkedListToken):void;
+	function set startToken(value:ILinkedListToken):void;
 	
 	//----------------------------------
 	//  initialInsertionAfter
@@ -181,12 +179,12 @@ public interface IParserNode
 	/**
 	 * The initial token insertion point after (used in parenthetic updates).
 	 */
-	function get initialInsertionAfter():LinkedListToken;
+	function get initialInsertionAfter():ILinkedListToken;
 	
 	/**
 	 * @private
 	 */
-	function set initialInsertionAfter(value:LinkedListToken):void;
+	function set initialInsertionAfter(value:ILinkedListToken):void;
 	
 	//----------------------------------
 	//  initialInsertionBefore
@@ -195,12 +193,12 @@ public interface IParserNode
 	/**
 	 * The initial token insertion point before (used in parenthetic updates).
 	 */
-	function get initialInsertionBefore():LinkedListToken;
+	function get initialInsertionBefore():ILinkedListToken;
 	
 	/**
 	 * @private
 	 */
-	function set initialInsertionBefore(value:LinkedListToken):void;
+	function set initialInsertionBefore(value:ILinkedListToken):void;
 	
 	//--------------------------------------------------------------------------
 	//
@@ -328,11 +326,11 @@ public interface IParserNode
 	/**
 	 * Appends a token to the token stream.
 	 */
-	function appendToken(token:LinkedListToken):void;
+	function appendToken(token:ILinkedListToken):void;
 	
 	/**
 	 * Adds a token in the token stream at the specified child index.
 	 */
-	function addTokenAt(token:LinkedListToken, index:int):void;
+	function addTokenAt(token:ILinkedListToken, index:int):void;
 }
 }

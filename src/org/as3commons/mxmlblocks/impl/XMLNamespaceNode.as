@@ -24,8 +24,8 @@ import org.as3commons.asblocks.ASBlocksSyntaxError;
 import org.as3commons.asblocks.impl.ASTBuilder;
 import org.as3commons.asblocks.impl.ScriptNode;
 import org.as3commons.asblocks.impl.TokenBuilder;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.mxmlblocks.api.IXMLNamespace;
 import org.as3commons.mxmlblocks.parser.api.MXMLNodeKind;
 
@@ -78,7 +78,7 @@ public class XMLNamespaceNode extends ScriptNode implements IXMLNamespace
 		{
 			// need to add a colon to the beginning so the local name owns it
 			// then it will be removed when the local name is set to null
-			var colon:LinkedListToken = TokenBuilder.newColon();
+			var colon:ILinkedListToken = TokenBuilder.newColon();
 			ast = ASTBuilder.newAST(MXMLNodeKind.LOCAL_NAME, value);
 			ast.startToken.prepend(colon);
 			ast.startToken = colon;

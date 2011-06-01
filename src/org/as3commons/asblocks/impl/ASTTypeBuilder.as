@@ -4,8 +4,8 @@ package org.as3commons.asblocks.impl
 import org.as3commons.asblocks.api.ICompilationUnit;
 import org.as3commons.asblocks.api.Visibility;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.impl.AS3FragmentParser;
 import org.as3commons.asblocks.utils.ASTUtil;
 
@@ -194,7 +194,7 @@ public class ASTTypeBuilder
 		ast.addChild(params);
 		if (returnType)
 		{
-			var colon:LinkedListToken = TokenBuilder.newColon();
+			var colon:ILinkedListToken = TokenBuilder.newColon();
 			var typeAST:IParserNode = AS3FragmentParser.parseType(returnType);
 			typeAST.startToken.prepend(colon);
 			typeAST.startToken = colon;
@@ -223,7 +223,7 @@ public class ASTTypeBuilder
 		ast.addChild(params);
 		if (returnType)
 		{
-			var colon:LinkedListToken = TokenBuilder.newColon();
+			var colon:ILinkedListToken = TokenBuilder.newColon();
 			var typeAST:IParserNode = AS3FragmentParser.parseType(returnType);
 			typeAST.startToken.prepend(colon);
 			typeAST.startToken = colon;

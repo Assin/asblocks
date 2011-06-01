@@ -22,13 +22,13 @@ package org.as3commons.asblocks.parser.impl
 
 import org.as3commons.asblocks.impl.ASTBuilder;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.IScanner;
 import org.as3commons.asblocks.parser.api.ISourceCodeScanner;
 import org.as3commons.asblocks.parser.api.KeyWords;
 import org.as3commons.asblocks.parser.api.Operators;
 import org.as3commons.asblocks.parser.core.AS3ParserMap;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.LinkedListTreeAdaptor;
 import org.as3commons.asblocks.parser.core.Node;
 import org.as3commons.asblocks.parser.core.TokenNode;
@@ -695,7 +695,7 @@ public class AS3Parser extends ParserBase
 	 */
 	private function parseClassField(result:TokenNode):TokenNode
 	{
-		var mod:LinkedListToken = findToken(result.token, AS3NodeKind.MODIFIER);
+		var mod:ILinkedListToken = findToken(result.token, AS3NodeKind.MODIFIER);
 		if (mod)
 		{
 			result.line = mod.line;
@@ -711,7 +711,7 @@ public class AS3Parser extends ParserBase
 	 */
 	private function parseClassConstant(result:TokenNode):TokenNode
 	{
-		var mod:LinkedListToken = findToken(result.token, AS3NodeKind.MODIFIER);
+		var mod:ILinkedListToken = findToken(result.token, AS3NodeKind.MODIFIER);
 		if (mod)
 		{
 			result.line = mod.line;
@@ -733,7 +733,7 @@ public class AS3Parser extends ParserBase
 		}
 		
 		result.kind = AS3NodeKind.FUNCTION;
-		var mod:LinkedListToken = findToken(result.token, AS3NodeKind.MODIFIER);
+		var mod:ILinkedListToken = findToken(result.token, AS3NodeKind.MODIFIER);
 		if (mod)
 		{
 			result.line = mod.line;
@@ -757,7 +757,7 @@ public class AS3Parser extends ParserBase
 		}
 		
 		result.kind = AS3NodeKind.NAMESPACE;
-		var mod:LinkedListToken = findToken(result.token, AS3NodeKind.MODIFIER);
+		var mod:ILinkedListToken = findToken(result.token, AS3NodeKind.MODIFIER);
 		if (mod)
 		{
 			result.line = mod.line;
@@ -989,9 +989,9 @@ public class AS3Parser extends ParserBase
 	/**
 	 * @private
 	 */
-	private function findToken(token:LinkedListToken, kind:String):LinkedListToken
+	private function findToken(token:ILinkedListToken, kind:String):ILinkedListToken
 	{
-		var next:LinkedListToken = token;
+		var next:ILinkedListToken = token;
 		while (next)
 		{
 			if (next.kind == kind)

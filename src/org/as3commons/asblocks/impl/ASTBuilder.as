@@ -4,6 +4,7 @@ package org.as3commons.asblocks.impl
 import org.as3commons.asblocks.api.IMetaData;
 import org.as3commons.asblocks.api.Visibility;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.IToken;
 import org.as3commons.asblocks.parser.core.LinkedListToken;
@@ -38,7 +39,7 @@ public class ASTBuilder
 	public static function parseTypeAST(type:String):IParserNode
 	{
 		var ast:IParserNode = AS3FragmentParser.parseType(type);
-		var colon:LinkedListToken = TokenBuilder.newColon();
+		var colon:ILinkedListToken = TokenBuilder.newColon();
 		ast.startToken.prepend(colon);
 		ast.startToken = colon;
 		return ast;
@@ -66,7 +67,7 @@ public class ASTBuilder
 	
 	public static function newComment(ast:IParserNode, text:String):IToken
 	{
-		var comment:LinkedListToken = TokenBuilder.newSLComment("//" + text);
+		var comment:ILinkedListToken = TokenBuilder.newSLComment("//" + text);
 		var indent:String = ASTUtil.findIndentForComment(ast);
 		ast.appendToken(TokenBuilder.newNewline());
 		ast.appendToken(TokenBuilder.newWhiteSpace(indent));
@@ -74,7 +75,7 @@ public class ASTBuilder
 		return comment;
 	}
 	
-	public static function spaceEitherSide(token:LinkedListToken):void
+	public static function spaceEitherSide(token:ILinkedListToken):void
 	{
 		token.prepend(TokenBuilder.newSpace());
 		token.append(TokenBuilder.newSpace());

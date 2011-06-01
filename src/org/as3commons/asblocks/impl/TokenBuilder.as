@@ -2,328 +2,329 @@ package org.as3commons.asblocks.impl
 {
 
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.KeyWords;
 import org.as3commons.asblocks.parser.api.Operators;
 import org.as3commons.asblocks.parser.core.LinkedListToken;
 
 public class TokenBuilder
 {
-	public static function newToken(kind:String, text:String):LinkedListToken
+	public static function newToken(kind:String, text:String):ILinkedListToken
 	{
 		return new LinkedListToken(kind, text);
 	}
 	
-	public static function newSLComment(text:String):LinkedListToken
+	public static function newSLComment(text:String):ILinkedListToken
 	{
 		return newToken("sl-comment", text);
 	}
 	
-	public static function newMLComment(text:String):LinkedListToken
+	public static function newMLComment(text:String):ILinkedListToken
 	{
 		return newToken("ml-comment", text);
 	}
 	
-	public static function newPostDec():LinkedListToken
+	public static function newPostDec():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.POST_DEC, "--");
 	}
 	
-	public static function newPostInc():LinkedListToken
+	public static function newPostInc():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.POST_INC, "++");
 	}
 	
-	public static function newPreDec():LinkedListToken
+	public static function newPreDec():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.PRE_DEC, "--");
 	}
 	
-	public static function newPreInc():LinkedListToken
+	public static function newPreInc():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.PRE_INC, "++");
 	}
 	
-	public static function newDot():LinkedListToken
+	public static function newDot():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.DOT, ".");
 	}
 	
-	public static function newQuestion():LinkedListToken
+	public static function newQuestion():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.CONDITIONAL, "?");
 	}
 	
-	public static function newElse():LinkedListToken
+	public static function newElse():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.ELSE, "else");
 	}
 	
-	public static function newSemi():LinkedListToken
+	public static function newSemi():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.SEMI, Operators.SEMI);
 	}
 	
-	public static function newColon():LinkedListToken
+	public static function newColon():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.COLON, Operators.COLON);
 	}
 	
-	public static function newSpace():LinkedListToken
+	public static function newSpace():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.SPACE, " ");
 	}
 	
-	public static function newClass():LinkedListToken
+	public static function newClass():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.CLASS, "class");
 	}
 	
-	public static function newEach():LinkedListToken
+	public static function newEach():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.EACH, "each");
 	}
 	
-	public static function newIn():LinkedListToken
+	public static function newIn():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.IN, "in");
 	}
 	
-	public static function newInterface():LinkedListToken
+	public static function newInterface():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.INTERFACE, "interface");
 	}
 	
-	public static function newWhile():LinkedListToken
+	public static function newWhile():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.WHILE, "while");
 	}
 	
-	public static function newXML():LinkedListToken
+	public static function newXML():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.XML, "xml");
 	}
 	
-	public static function newNamespace():LinkedListToken
+	public static function newNamespace():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.NAMESPACE, "namespace");
 	}
 	
-	public static function newDefault():LinkedListToken
+	public static function newDefault():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.DEFAULT, "default");
 	}
 	
-	public static function newPlus():LinkedListToken
+	public static function newPlus():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.PLUS, "+");
 	}
 	
-	public static function newAnd():LinkedListToken
+	public static function newAnd():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.LAND, "&&");
 	}
 	
-	public static function newBitAnd():LinkedListToken
+	public static function newBitAnd():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.BAND, "&");
 	}
 	
-	public static function newBitOr():LinkedListToken
+	public static function newBitOr():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.BOR, "|");
 	}
 	
-	public static function newBitXor():LinkedListToken
+	public static function newBitXor():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.BXOR, "^");
 	}
 	
-	public static function newDiv():LinkedListToken
+	public static function newDiv():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.DIV, "/");
 	}
 	
-	public static function newEquals():LinkedListToken
+	public static function newEquals():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.EQUAL, "==");
 	}
 	
-	public static function newGreaterEquals():LinkedListToken
+	public static function newGreaterEquals():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.GE, ">=");
 	}
 	
-	public static function newGreater():LinkedListToken
+	public static function newGreater():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.GT, ">");
 	}
 	
-	public static function newLessEquals():LinkedListToken
+	public static function newLessEquals():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.LE, "<=");
 	}
 	
-	public static function newLess():LinkedListToken
+	public static function newLess():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.LT, "<");
 	}
 	
-	public static function newModulo():LinkedListToken
+	public static function newModulo():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.MOD, "%");
 	}
 	
-	public static function newMult():LinkedListToken
+	public static function newMult():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.STAR, "*");
 	}
 	
-	public static function newNotEquals():LinkedListToken
+	public static function newNotEquals():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.NOT_EQUAL, "!=");
 	}
 	
-	public static function newOr():LinkedListToken
+	public static function newOr():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.LOR, "||");
 	}
 	
-	public static function newShiftLeft():LinkedListToken
+	public static function newShiftLeft():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.SL, "<<");
 	}
 	
-	public static function newShiftRight():LinkedListToken
+	public static function newShiftRight():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.SR, ">>");
 	}
 	
-	public static function newShiftRightUnsigned():LinkedListToken
+	public static function newShiftRightUnsigned():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.BSR, ">>>");
 	}
 	
-	public static function newMinus():LinkedListToken
+	public static function newMinus():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.MINUS, "-");
 	}
 	
-	public static function newConst():LinkedListToken
+	public static function newConst():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.CONST, "const");
 	}
 	
-	public static function newVar():LinkedListToken
+	public static function newVar():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.VAR, "var");
 	}
 	
-	public static function newFunction():LinkedListToken
+	public static function newFunction():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.FUNCTION, "function");
 	}
 	
-	public static function newNewline():LinkedListToken
+	public static function newNewline():ILinkedListToken
 	{
-		var token:LinkedListToken = newToken(AS3NodeKind.NL, "\n");
+		var token:ILinkedListToken = newToken(AS3NodeKind.NL, "\n");
 		token.channel = AS3NodeKind.HIDDEN;
 		return token;
 	}
 	
-	public static function newWhiteSpace(string:String):LinkedListToken
+	public static function newWhiteSpace(string:String):ILinkedListToken
 	{
-		var token:LinkedListToken = newToken(AS3NodeKind.WS, string);
+		var token:ILinkedListToken = newToken(AS3NodeKind.WS, string);
 		token.channel = AS3NodeKind.HIDDEN;
 		return token;
 	}
 	
-	public static function newQuote():LinkedListToken
+	public static function newQuote():ILinkedListToken
 	{
 		return newToken("quote", "\"");
 	}
 	
-	public static function newLParen():LinkedListToken
+	public static function newLParen():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.LPAREN, "(");
 	}
 	
-	public static function newRParen():LinkedListToken
+	public static function newRParen():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.RPAREN, ")");
 	}
 	
-	public static function newComma():LinkedListToken
+	public static function newComma():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.COMMA, ",");
 	}
 	
-	public static function newLeftBracket():LinkedListToken
+	public static function newLeftBracket():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.LBRACKET, Operators.LBRACK);
 	}
 	
-	public static function newRightBracket():LinkedListToken
+	public static function newRightBracket():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.RBRACKET, Operators.RBRACK);
 	}
 	
-	public static function newAssign():LinkedListToken
+	public static function newAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.ASSIGN, Operators.ASSIGN);
 	}
 	
-	public static function newAddAssign():LinkedListToken
+	public static function newAddAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.PLUS_ASSIGN, Operators.PLUS_ASSIGN);
 	}
 	
-	public static function newBitAndAssign():LinkedListToken
+	public static function newBitAndAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.BAND_ASSIGN, Operators.BAND_ASSIGN);
 	}
 	
-	public static function newBitOrAssign():LinkedListToken
+	public static function newBitOrAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.BOR_ASSIGN, Operators.BOR_ASSIGN);
 	}
 	
-	public static function newBitXorAssign():LinkedListToken
+	public static function newBitXorAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.BXOR_ASSIGN, Operators.BXOR_ASSIGN);
 	}
 	
-	public static function newDivAssign():LinkedListToken
+	public static function newDivAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.DIV_ASSIGN, Operators.DIV_ASSIGN);
 	}
 	
-	public static function newModAssign():LinkedListToken
+	public static function newModAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.MOD_ASSIGN, Operators.MOD_ASSIGN);
 	}
 	
-	public static function newStarAssign():LinkedListToken
+	public static function newStarAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.STAR_ASSIGN, Operators.STAR_ASSIGN);
 	}
 	
-	public static function newSLAssign():LinkedListToken
+	public static function newSLAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.SL_ASSIGN, Operators.SL_ASSIGN);
 	}
 	
-	public static function newSRAssign():LinkedListToken
+	public static function newSRAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.SR_ASSIGN, Operators.SR_ASSIGN);
 	}
 	
-	public static function newSRUAssign():LinkedListToken
+	public static function newSRUAssign():ILinkedListToken
 	{
 		// FIXME (mschmalle) TokenBuilder#newSRUAssign()
 		return newToken(AS3NodeKind.SR_ASSIGN, Operators.SR_ASSIGN);
 	}
 	
-	public static function newSubAssign():LinkedListToken
+	public static function newSubAssign():ILinkedListToken
 	{
 		return newToken(AS3NodeKind.MINUS_ASSIGN, Operators.MINUS_ASSIGN);
 	}

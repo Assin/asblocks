@@ -23,6 +23,7 @@ package org.as3commons.asblocks.parser.core
 import flash.errors.IllegalOperationError;
 
 import org.as3commons.asblocks.ASBlocksSyntaxError;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 
 /**
  * A linked list token implementation.
@@ -31,7 +32,7 @@ import org.as3commons.asblocks.ASBlocksSyntaxError;
  * @copyright Teoti Graphix, LLC
  * @productversion 1.0
  */
-public class LinkedListToken extends Token
+public class LinkedListToken extends Token implements ILinkedListToken
 {
 	//--------------------------------------------------------------------------
 	//
@@ -49,7 +50,7 @@ public class LinkedListToken extends Token
 	private var _channel:String;
 	
 	/**
-	 * doc
+	 * @copy org.as3commons.asblocks.parser.api.ILinkedListToken#channel
 	 */
 	public function get channel():String
 	{
@@ -76,12 +77,12 @@ public class LinkedListToken extends Token
 	/**
 	 * @private
 	 */
-	internal var _previous:LinkedListToken;
+	private var _previous:LinkedListToken;
 	
 	/**
-	 * doc
+	 * @copy org.as3commons.asblocks.parser.api.ILinkedListToken#previous
 	 */
-	public function get previous():LinkedListToken
+	public function get previous():ILinkedListToken
 	{
 		return _previous;
 	}
@@ -89,18 +90,26 @@ public class LinkedListToken extends Token
 	/**
 	 * @private
 	 */	
-	public function set previous(value:LinkedListToken):void
+	public function set previous(value:ILinkedListToken):void
 	{
 		if (this == value)
 			throw new ASBlocksSyntaxError("Loop detected");
 		
-		_previous = value;
+		_previous = value as LinkedListToken;
 		
 		if (_previous)
 		{
-			_previous._next = this;
+			_previous.setNext(this);
 		}
 	}
+		
+	/**
+	 * @private
+	 */	
+	internal function setPrevious(value:LinkedListToken):void
+	{
+		_previous = value;
+	}	
 	
 	//----------------------------------
 	//  next
@@ -109,12 +118,12 @@ public class LinkedListToken extends Token
 	/**
 	 * @private
 	 */
-	internal var _next:LinkedListToken;
+	private var _next:LinkedListToken;
 	
 	/**
-	 * doc
+	 * @copy org.as3commons.asblocks.parser.api.ILinkedListToken#next
 	 */
-	public function get next():LinkedListToken
+	public function get next():ILinkedListToken
 	{
 		return _next;
 	}
@@ -122,17 +131,25 @@ public class LinkedListToken extends Token
 	/**
 	 * @private
 	 */	
-	public function set next(value:LinkedListToken):void
+	public function set next(value:ILinkedListToken):void
 	{
 		if (this == value)
 			throw new ASBlocksSyntaxError("Loop detected");
 		
-		_next = value;
+		_next = value as LinkedListToken;
 		
 		if (_next)
 		{
-			_next._previous = this;
+			_next.setPrevious(this);
 		}
+	}
+		
+	/**
+	 * @private
+	 */	
+	internal function setNext(value:LinkedListToken):void
+	{
+		_next = value;
 	}
 	
 	//--------------------------------------------------------------------------
@@ -161,62 +178,72 @@ public class LinkedListToken extends Token
 	//--------------------------------------------------------------------------
 	
 	/**
-	 * @private
+	 * @copy org.as3commons.asblocks.parser.api.ILinkedListToken#append()
 	 */
-	public function append(insert:LinkedListToken):void
+	public function append(token:ILinkedListToken):void
 	{
-		if (insert.previous)
-			throw new IllegalOperationError("append(" + insert + ") : previous was not null");
+		// token, token, this, [after], token, token
+		if (token.previous)
+			throw new IllegalOperationError("append(" + token + ") : previous was not null");
 		
-		if (insert.next)
+		if (token.next)
 			throw new IllegalOperationError("append(" + next + ") : previous was not null");
 		
-		insert._next = _next;
-		insert._previous = this;
+		var ltoken:LinkedListToken = token as LinkedListToken;
+		if (!ltoken)
+			return;
+		
+		ltoken.setNext(_next);
+		ltoken.setPrevious(this);
 		
 		if (_next)
 		{
-			_next._previous = insert;
+			_next.setPrevious(ltoken);
 		}
 		
-		_next = insert;
+		_next = ltoken;
 	}
 	
 	/**
-	 * @private
+	 * @copy org.as3commons.asblocks.parser.api.ILinkedListToken#prepend()
 	 */
-	public function prepend(insert:LinkedListToken):void
+	public function prepend(token:ILinkedListToken):void
 	{
-		if (insert.previous)
-			throw new IllegalOperationError("prepend(" + insert + ") : previous was not null");
+		// token, token, [before], this, token, token
+		if (token.previous)
+			throw new IllegalOperationError("prepend(" + token + ") : previous was not null");
 		
-		if (insert.next)
+		if (token.next)
 			throw new IllegalOperationError("prepend(" + next + ") : previous was not null");
 		
-		insert._previous = _previous;
-		insert._next = this;
+		var ltoken:LinkedListToken = token as LinkedListToken;
+		if (!ltoken)
+			return;
+		
+		ltoken.setPrevious(_previous);
+		ltoken.setNext(this);
 		
 		if (_previous)
 		{
-			_previous._next = insert;
+			_previous.setNext(ltoken);
 		}
 		
-		_previous = insert;
+		_previous = ltoken;
 	}
 	
 	/**
-	 * @private
+	 * @copy org.as3commons.asblocks.parser.api.ILinkedListToken#remove()
 	 */
 	public function remove():void
 	{
 		if (_previous)
 		{
-			_previous._next = _next;
+			_previous.setNext(_next);
 		}
 		
 		if (_next)
 		{
-			_next._previous = _previous;
+			_next.setPrevious(_previous);
 		}
 		
 		_next = null;

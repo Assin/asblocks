@@ -5,9 +5,9 @@ import org.as3commons.asblocks.api.IAssignmentExpression;
 import org.as3commons.asblocks.api.IBinaryExpression;
 import org.as3commons.asblocks.api.IExpression;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.core.AS3ParserMap;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.TokenNode;
 import org.as3commons.asblocks.parser.impl.AS3Parser;
 import org.as3commons.asblocks.utils.ASTUtil;
@@ -18,8 +18,8 @@ public class ASTExpressionBuilder
 													thenExpression:IParserNode,
 													elseExpression:IParserNode):IParserNode
 	{
-		var op:LinkedListToken = TokenBuilder.newQuestion();
-		var colon:LinkedListToken = TokenBuilder.newColon();
+		var op:ILinkedListToken = TokenBuilder.newQuestion();
+		var colon:ILinkedListToken = TokenBuilder.newColon();
 		var ast:IParserNode = ASTUtil.newTokenAST(op);
 		
 		TokenNode(ast).noUpdate = true;
@@ -40,7 +40,7 @@ public class ASTExpressionBuilder
 		return ast;
 	}
 	
-	public static function newPostfixExpression(op:LinkedListToken, 
+	public static function newPostfixExpression(op:ILinkedListToken, 
 												subExpr:IParserNode):IParserNode
 	{
 		var ast:IParserNode = newPostfixAST(op);
@@ -52,7 +52,7 @@ public class ASTExpressionBuilder
 		return ast;
 	}
 	
-	public static function newPrefixExpression(op:LinkedListToken, 
+	public static function newPrefixExpression(op:ILinkedListToken, 
 											   subExpr:IParserNode):IParserNode
 	{
 		var ast:IParserNode = newPrefixAST(op);
@@ -60,7 +60,7 @@ public class ASTExpressionBuilder
 		return ast;
 	}
 	
-	public static function newAssignExpression(op:LinkedListToken, 
+	public static function newAssignExpression(op:ILinkedListToken, 
 											   left:IExpression,
 											   right:IExpression):IAssignmentExpression
 	{
@@ -89,7 +89,7 @@ public class ASTExpressionBuilder
 	}
 	
 	
-	public static function newBinaryExpression(op:LinkedListToken, 
+	public static function newBinaryExpression(op:ILinkedListToken, 
 											   left:IExpression,
 											   right:IExpression):IBinaryExpression
 	{
@@ -156,7 +156,7 @@ public class ASTExpressionBuilder
 	public static function newFieldAccessExpression(target:IParserNode, 
 													name:IParserNode):IParserNode
 	{
-		var op:LinkedListToken = TokenBuilder.newDot();
+		var op:ILinkedListToken = TokenBuilder.newDot();
 		var ast:IParserNode = ASTUtil.newTokenAST(op);
 		
 		TokenNode(ast).noUpdate = true;
@@ -173,7 +173,7 @@ public class ASTExpressionBuilder
 		return ast;
 	}
 	
-	public static function newPrefixAST(op:LinkedListToken):IParserNode
+	public static function newPrefixAST(op:ILinkedListToken):IParserNode
 	{
 		if (op.kind == AS3NodeKind.PRE_INC)
 		{
@@ -186,7 +186,7 @@ public class ASTExpressionBuilder
 		return null;
 	}
 	
-	public static function newPostfixAST(op:LinkedListToken):IParserNode
+	public static function newPostfixAST(op:ILinkedListToken):IParserNode
 	{
 		if (op.kind == AS3NodeKind.POST_INC)
 		{
@@ -199,7 +199,7 @@ public class ASTExpressionBuilder
 		return null;
 	}
 	
-	public static function newBinaryAST(op:LinkedListToken):IParserNode
+	public static function newBinaryAST(op:ILinkedListToken):IParserNode
 	{
 		if (AS3ParserMap.additive.containsValue(op.kind))
 		{

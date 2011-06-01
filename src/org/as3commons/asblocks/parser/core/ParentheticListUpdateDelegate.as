@@ -21,6 +21,7 @@ package org.as3commons.asblocks.parser.core
 {
 
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.ITokenListUpdateDelegate;
 
@@ -82,7 +83,7 @@ public class ParentheticListUpdateDelegate implements ITokenListUpdateDelegate
 	public function addedChild(parent:IParserNode, 
 							   child:IParserNode):void
 	{
-		var insert:LinkedListToken = findClose(parent).previous;
+		var insert:ILinkedListToken = findClose(parent).previous;
 		
 		insertAfter(insert, insert.next, child.startToken, child.stopToken);
 	}
@@ -94,8 +95,8 @@ public class ParentheticListUpdateDelegate implements ITokenListUpdateDelegate
 								 index:int, 
 								 child:IParserNode):void
 	{
-		var target:LinkedListToken;
-		var targetNext:LinkedListToken;
+		var target:ILinkedListToken;
+		var targetNext:ILinkedListToken;
 		
 		if (index == 0) 
 		{
@@ -124,9 +125,9 @@ public class ParentheticListUpdateDelegate implements ITokenListUpdateDelegate
 	 * @private
 	 */
 	public function appendToken(parent:IParserNode, 
-								append:LinkedListToken):void
+								append:ILinkedListToken):void
 	{
-		var close:LinkedListToken = findClose(parent).previous;
+		var close:ILinkedListToken = findClose(parent).previous;
 		insertAfter(close, close.next, append, append);
 	}
 	
@@ -135,10 +136,10 @@ public class ParentheticListUpdateDelegate implements ITokenListUpdateDelegate
 	 */
 	public function addToken(parent:IParserNode, 
 							 index:int, 
-							 append:LinkedListToken):void
+							 append:ILinkedListToken):void
 	{
-		var target:LinkedListToken;
-		var targetNext:LinkedListToken;
+		var target:ILinkedListToken;
+		var targetNext:ILinkedListToken;
 		
 		if (index == 0)
 		{
@@ -177,10 +178,10 @@ public class ParentheticListUpdateDelegate implements ITokenListUpdateDelegate
 								 index:int, 
 								 child:IParserNode):void
 	{
-		var start:LinkedListToken = child.startToken;
-		var stop:LinkedListToken = child.stopToken;
-		var startPrev:LinkedListToken = start.previous;
-		var stopNext:LinkedListToken = stop.next;
+		var start:ILinkedListToken = child.startToken;
+		var stop:ILinkedListToken = child.stopToken;
+		var startPrev:ILinkedListToken = start.previous;
+		var stopNext:ILinkedListToken = stop.next;
 		if (startPrev != null) 
 		{
 			startPrev.next = stopNext;
@@ -221,9 +222,9 @@ public class ParentheticListUpdateDelegate implements ITokenListUpdateDelegate
 	/**
 	 * @private
 	 */
-	private function findOpen(parent:IParserNode):LinkedListToken
+	private function findOpen(parent:IParserNode):ILinkedListToken
 	{
-		for (var tok:LinkedListToken = parent.startToken; tok != null; tok = tok.next)
+		for (var tok:ILinkedListToken = parent.startToken; tok != null; tok = tok.next)
 		{
 			if (tok.kind == open)
 			{
@@ -236,9 +237,9 @@ public class ParentheticListUpdateDelegate implements ITokenListUpdateDelegate
 	/**
 	 * @private
 	 */
-	private function findClose(parent:IParserNode):LinkedListToken
+	private function findClose(parent:IParserNode):ILinkedListToken
 	{
-		for (var tok:LinkedListToken = parent.stopToken; tok != null; tok = tok.previous)
+		for (var tok:ILinkedListToken = parent.stopToken; tok != null; tok = tok.previous)
 		{
 			if (tok.kind == close)
 			{
@@ -251,9 +252,9 @@ public class ParentheticListUpdateDelegate implements ITokenListUpdateDelegate
 	/**
 	 * @private
 	 */
-	private function maybeSkiptoLinePreceeding(target:LinkedListToken):LinkedListToken
+	private function maybeSkiptoLinePreceeding(target:ILinkedListToken):ILinkedListToken
 	{
-		for (var tok:LinkedListToken = target.previous; tok != null; tok = tok.previous)
+		for (var tok:ILinkedListToken = target.previous; tok != null; tok = tok.previous)
 		{
 			switch (tok.kind) 
 			{
@@ -271,10 +272,10 @@ public class ParentheticListUpdateDelegate implements ITokenListUpdateDelegate
 	/**
 	 * @private
 	 */
-	protected static function insertAfter(left:LinkedListToken, 
-										  right:LinkedListToken,
-										  startToken:LinkedListToken, 
-										  stopToken:LinkedListToken):void
+	protected static function insertAfter(left:ILinkedListToken, 
+										  right:ILinkedListToken,
+										  startToken:ILinkedListToken, 
+										  stopToken:ILinkedListToken):void
 	{
 		if (left == null && right == null) 
 		{

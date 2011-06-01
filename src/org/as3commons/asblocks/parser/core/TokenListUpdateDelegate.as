@@ -1,6 +1,7 @@
 package org.as3commons.asblocks.parser.core
 {
 
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.ITokenListUpdateDelegate;
 
@@ -27,7 +28,7 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 				throw new Error("The parent node");
 				//throw new Error("The parent node ("+ASTUtils.tokenName(parent)+") has only a placeholder token, so a child which also has only a placeholder token ("+ASTUtils.tokenName(child)+") can't be added yet");
 			}
-			var placeholder:LinkedListToken = parent.startToken;
+			var placeholder:ILinkedListToken = parent.startToken;
 			if (placeholder.previous != null) 
 			{
 				placeholder.previous.next = child.startToken;
@@ -41,7 +42,7 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 			return;
 		}
 		
-		var stop:LinkedListToken = findTokenInsertionPointForChildWithinParent(parent, child);
+		var stop:ILinkedListToken = findTokenInsertionPointForChildWithinParent(parent, child);
 		if (!parent.startToken)
 		{
 			parent.startToken = child.startToken;
@@ -60,8 +61,8 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 								 index:int, 
 								 child:IParserNode):void
 	{
-		var target:LinkedListToken;
-		var targetNext:LinkedListToken;
+		var target:ILinkedListToken;
+		var targetNext:ILinkedListToken;
 		if (index == 0) 
 		{
 			var prevFirstChild:IParserNode = parent.getChild(1);
@@ -82,10 +83,10 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 	}
 	
 	
-	protected static function insertAfter(target:LinkedListToken, 
-										  targetNext:LinkedListToken,
-										  start:LinkedListToken, 
-										  stop:LinkedListToken):void
+	protected static function insertAfter(target:ILinkedListToken, 
+										  targetNext:ILinkedListToken,
+										  start:ILinkedListToken, 
+										  stop:ILinkedListToken):void
 	{
 		if (target == null && targetNext == null) 
 		{
@@ -118,7 +119,7 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 	}
 	
 	private function findTokenInsertionPointForChildWithinParent(parent:IParserNode, 
-																 child:IParserNode):LinkedListToken 
+																 child:IParserNode):ILinkedListToken 
 	{
 		// this fails to take into account am ancestor not
 		// having the same kind of TreeTokenListUpdateDelegate
@@ -165,7 +166,7 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 	}
 	
 	public function appendToken(parent:IParserNode, 
-								append:LinkedListToken):void
+								append:ILinkedListToken):void
 	{
 		if (parent.stopToken == null) 
 		{
@@ -184,11 +185,11 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 	
 	public function addToken(parent:IParserNode, 
 							 index:int, 
-							 append:LinkedListToken):void
+							 append:ILinkedListToken):void
 	{
 		if (isPlaceholder(parent)) 
 		{
-			var placeholder:LinkedListToken = parent.startToken;
+			var placeholder:ILinkedListToken = parent.startToken;
 			parent.startToken = append;
 			parent.stopToken = append;
 			placeholder.previous = null;
@@ -201,8 +202,8 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 		} 
 		else 
 		{
-			var target:LinkedListToken;
-			var targetNext:LinkedListToken;
+			var target:ILinkedListToken;
+			var targetNext:ILinkedListToken;
 			if (index == 0) 
 			{
 				targetNext = parent.startToken;
@@ -232,10 +233,10 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 	{
 		// this should update start/stop tokens for the parent
 		//        when the first/last child is removed
-		var start:LinkedListToken = child.startToken;
-		var stop:LinkedListToken = child.stopToken;
-		var startPrev:LinkedListToken = start.previous;
-		var stopNext:LinkedListToken = stop.next;
+		var start:ILinkedListToken = child.startToken;
+		var stop:ILinkedListToken = child.stopToken;
+		var startPrev:ILinkedListToken = start.previous;
+		var stopNext:ILinkedListToken = stop.next;
 		//		if (startPrev == null) {
 		//			throw new IllegalArgumentException("No start.prev: "+child);
 		//		}
@@ -252,7 +253,7 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 			// there's something in the token stream for the parent
 			// to reference, and the parent remains anchored to the
 			// appropriate location within the source code
-			var placeholder:LinkedListToken// = TokenBuilder.newPlaceholder(parent);
+			var placeholder:ILinkedListToken// = TokenBuilder.newPlaceholder(parent);
 			startPrev.next = placeholder;
 			stopNext.previous = placeholder;
 		} 
@@ -295,8 +296,8 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 			throw new Error("No stopToken: "+child);
 		}
 		// link the new child's tokens in place of the old,
-		var oldBefore:LinkedListToken = findOldBeforeToken(tree, index, child, oldChild);
-		var oldAfter:LinkedListToken = findOldAfterToken(tree, index, child, oldChild);
+		var oldBefore:ILinkedListToken = findOldBeforeToken(tree, index, child, oldChild);
+		var oldAfter:ILinkedListToken = findOldAfterToken(tree, index, child, oldChild);
 		if (oldBefore != null) 
 		{
 			oldBefore.next = child.startToken;
@@ -323,9 +324,9 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 	private function findOldBeforeToken(tree:IParserNode, 
 										index:int, 
 										child:IParserNode, 
-										oldChild:IParserNode):LinkedListToken
+										oldChild:IParserNode):ILinkedListToken
 	{
-		var oldStart:LinkedListToken = oldChild.startToken;
+		var oldStart:ILinkedListToken = oldChild.startToken;
 		if (oldStart == null) 
 		{
 			throw new Error("<"+oldChild+">, child "+index+" of <"+tree+">, had no startToken");
@@ -336,9 +337,9 @@ public class TokenListUpdateDelegate implements ITokenListUpdateDelegate
 	private function findOldAfterToken(tree:IParserNode, 
 									   index:int, 
 									   child:IParserNode, 
-									   oldChild:IParserNode):LinkedListToken
+									   oldChild:IParserNode):ILinkedListToken
 	{
-		var oldStop:LinkedListToken = oldChild.stopToken;
+		var oldStop:ILinkedListToken = oldChild.stopToken;
 		if (oldStop == null) 
 		{
 			throw new Error("<"+oldChild+">, child "+index+" of <"+tree+">, had no stopToken");

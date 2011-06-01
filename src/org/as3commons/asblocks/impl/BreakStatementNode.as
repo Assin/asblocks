@@ -22,8 +22,8 @@ package org.as3commons.asblocks.impl
 
 import org.as3commons.asblocks.api.IBreakStatement;
 import org.as3commons.asblocks.api.IExpression;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 
 /**
  * The <code>IBreakStatement</code> implementation.
@@ -63,7 +63,7 @@ public class BreakStatementNode extends ScriptNode implements IBreakStatement
 		var label:IParserNode = findLabel();
 		if (label)
 		{
-			var ws:LinkedListToken = label.startToken.previous;
+			var ws:ILinkedListToken = label.startToken.previous;
 			if (ws.kind == "ws")
 			{
 				ws.remove();

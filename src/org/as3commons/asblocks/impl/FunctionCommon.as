@@ -24,8 +24,8 @@ import org.as3commons.asblocks.ASBlocksSyntaxError;
 import org.as3commons.asblocks.api.IFunction;
 import org.as3commons.asblocks.api.IParameter;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.impl.AS3FragmentParser;
 import org.as3commons.asblocks.parser.impl.ASTIterator;
 import org.as3commons.asblocks.utils.ASTUtil;
@@ -121,7 +121,7 @@ public class FunctionCommon implements IFunction
 		}
 		
 		var typeAST:IParserNode = AS3FragmentParser.parseType(value);
-		var colon:LinkedListToken = TokenBuilder.newColon();
+		var colon:ILinkedListToken = TokenBuilder.newColon();
 		typeAST.startToken.prepend(colon);
 		typeAST.startToken = colon;
 		if (ast == null) // SHOULDN'T BE

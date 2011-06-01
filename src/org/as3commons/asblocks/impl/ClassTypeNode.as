@@ -26,8 +26,8 @@ import org.as3commons.asblocks.api.IMethod;
 import org.as3commons.asblocks.api.Modifier;
 import org.as3commons.asblocks.api.Visibility;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.impl.AS3FragmentParser;
 import org.as3commons.asblocks.parser.impl.ASTIterator;
 import org.as3commons.asblocks.utils.ASTUtil;
@@ -123,7 +123,7 @@ public class ClassTypeNode extends TypeNode implements IClassType
 			extendz = ASTBuilder.newAST(AS3NodeKind.EXTENDS, "extends");
 			extendz.appendToken(TokenBuilder.newSpace());
 			// space is between className and 'extends' keyword
-			var space:LinkedListToken = TokenBuilder.newSpace();
+			var space:ILinkedListToken = TokenBuilder.newSpace();
 			extendz.startToken.prepend(space);
 			extendz.startToken = space;
 			var i:ASTIterator = new ASTIterator(node);
@@ -270,7 +270,7 @@ public class ClassTypeNode extends TypeNode implements IClassType
 			i.find(AS3NodeKind.CONTENT);
 			i.insertBeforeCurrent(ast);
 			// adds a space before the 'implements' keyword
-			var space:LinkedListToken = TokenBuilder.newSpace();
+			var space:ILinkedListToken = TokenBuilder.newSpace();
 			ast.startToken.prepend(space);
 		}
 		else
@@ -305,7 +305,7 @@ public class ClassTypeNode extends TypeNode implements IClassType
 				}
 				else if (count == 0)
 				{
-					var previous:LinkedListToken = ast.startToken.previous;
+					var previous:ILinkedListToken = ast.startToken.previous;
 					node.removeChild(ast);
 					// Hack, I can't figure out how to remove both spaces
 					ASTUtil.collapseWhitespace(previous)

@@ -22,9 +22,9 @@ package org.as3commons.asblocks.parser.impl
 
 import org.as3commons.asblocks.impl.TokenBuilder;
 import org.as3commons.asblocks.parser.api.ASDocNodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.IScanner;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.LinkedListTreeAdaptor;
 import org.as3commons.asblocks.parser.core.TokenNode;
 import org.as3commons.asblocks.parser.errors.Position;
@@ -652,9 +652,9 @@ public class ASDocParser extends ParserBase
 	 */
 	private function appendToken(node:TokenNode, 
 								 kind:String, 
-								 text:String):LinkedListToken
+								 text:String):ILinkedListToken
 	{
-		var token:LinkedListToken = adapter.createToken(
+		var token:ILinkedListToken = adapter.createToken(
 			kind, text,	token.line, token.column);
 		
 		node.appendToken(token);

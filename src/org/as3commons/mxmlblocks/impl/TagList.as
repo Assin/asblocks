@@ -23,9 +23,9 @@ package org.as3commons.mxmlblocks.impl
 import org.as3commons.asblocks.ASBlocksSyntaxError;
 import org.as3commons.asblocks.impl.ASTBuilder;
 import org.as3commons.asblocks.impl.TokenBuilder;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.IToken;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.impl.ASTIterator;
 import org.as3commons.asblocks.utils.ASTUtil;
 import org.as3commons.mxmlblocks.api.IAttribute;
@@ -102,7 +102,7 @@ public class TagList extends TagContainerDelegate implements IBlockTag
 			if (ast)
 			{
 				node.removeChild(ast);
-				var s:LinkedListToken = ASTUtil.findTagStop(node);
+				var s:ILinkedListToken = ASTUtil.findTagStop(node);
 				s.next.remove();
 			}
 			return;
@@ -111,16 +111,16 @@ public class TagList extends TagContainerDelegate implements IBlockTag
 		if (!ast)
 		{
 			ast = ASTBuilder.newAST(MXMLNodeKind.BINDING, value);
-			var colon:LinkedListToken = TokenBuilder.newColon();
+			var colon:ILinkedListToken = TokenBuilder.newColon();
 			ast.appendToken(colon);
 			//ast.startToken.beforeInsert(colon);
 			//ast.startToken = colon;
 			// TODO (mschmalle) 1 if as-doc
 			node.addChildAt(ast, 0);
-			var stop:LinkedListToken = ASTUtil.findTagStop(node);
+			var stop:ILinkedListToken = ASTUtil.findTagStop(node);
 			if (stop.text == "</")
 			{
-				var end:LinkedListToken =  TokenBuilder.newToken("b-end", value + ":");
+				var end:ILinkedListToken =  TokenBuilder.newToken("b-end", value + ":");
 				stop.append(end);
 			}
 		}
@@ -160,7 +160,7 @@ public class TagList extends TagContainerDelegate implements IBlockTag
 		var ast:IParserNode = findLocalName();
 		ast.stringValue = value;
 		// stop is </ or />
-		var stop:LinkedListToken = ASTUtil.findTagStop(node);
+		var stop:ILinkedListToken = ASTUtil.findTagStop(node);
 		stop.next.text = value;
 	}
 	

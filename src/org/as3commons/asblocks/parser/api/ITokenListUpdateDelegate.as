@@ -13,11 +13,11 @@ public interface ITokenListUpdateDelegate
 						  child:IParserNode):void;
 	
 	function appendToken(parent:IParserNode, 
-						 append:LinkedListToken):void;
+						 append:ILinkedListToken):void;
 	
 	function addToken(parent:IParserNode, 
 					  index:int, 
-					  append:LinkedListToken):void;
+					  append:ILinkedListToken):void;
 	
 	function deletedChild(parent:IParserNode, 
 						  index:int, 

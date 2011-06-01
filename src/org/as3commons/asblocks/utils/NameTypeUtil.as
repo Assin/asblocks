@@ -30,8 +30,8 @@ import org.as3commons.asblocks.impl.ASTBuilder;
 import org.as3commons.asblocks.impl.ClassTypeNode;
 import org.as3commons.asblocks.impl.InterfaceTypeNode;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.impl.ASTIterator;
 
 /**
@@ -103,7 +103,7 @@ public class NameTypeUtil
 	public static function stringifyType(ast:IParserNode):String
 	{
 		var result:String = "";
-		for (var tok:LinkedListToken =  ast.startToken; tok != null && tok.kind != null; tok = tok.next)
+		for (var tok:ILinkedListToken =  ast.startToken; tok != null && tok.kind != null; tok = tok.next)
 		{
 			if (tok.text != null && tok.text != ":"
 				&&  tok.kind != "ws")

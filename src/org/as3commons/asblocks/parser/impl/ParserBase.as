@@ -21,11 +21,11 @@ package org.as3commons.asblocks.parser.impl
 {
 
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParser;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.IScanner;
 import org.as3commons.asblocks.parser.api.KeyWords;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.core.LinkedListTreeAdaptor;
 import org.as3commons.asblocks.parser.core.Token;
 import org.as3commons.asblocks.parser.core.TokenNode;
@@ -333,9 +333,9 @@ public class ParserBase implements IParser
 	 */
 	protected function consume(text:String, 
 							   node:TokenNode = null, 
-							   trim:Boolean = true):LinkedListToken
+							   trim:Boolean = true):ILinkedListToken
 	{
-		var consumed:LinkedListToken;
+		var consumed:ILinkedListToken;
 		
 		if (node != null && trim)
 		{
@@ -502,12 +502,12 @@ public class ParserBase implements IParser
 	/**
 	 * @private
 	 */
-	protected function append(node:TokenNode):LinkedListToken
+	protected function append(node:TokenNode):ILinkedListToken
 	{
 		if (!node)
 			return null;
 		
-		var token:LinkedListToken = adapter.createToken(
+		var token:ILinkedListToken = adapter.createToken(
 			token.text, token.text,
 			token.line, token.column);
 		
@@ -560,7 +560,7 @@ public class ParserBase implements IParser
 		if (!node || !scanner.allowWhiteSpace)
 			return;
 		
-		var tok:LinkedListToken;
+		var tok:ILinkedListToken;
 		
 		if (node)
 		{

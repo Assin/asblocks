@@ -4,6 +4,7 @@ package org.as3commons.asblocks.impl
 import org.as3commons.asblocks.api.IArgument;
 import org.as3commons.asblocks.api.IExpression;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.impl.AS3FragmentParser;
@@ -22,7 +23,7 @@ public class ASTStatementBuilder
 			kind, 
 			AS3NodeKind.LCURLY, "{", 
 			AS3NodeKind.RCURLY, "}");
-		var nl:LinkedListToken = TokenBuilder.newNewline();
+		var nl:ILinkedListToken = TokenBuilder.newNewline();
 		// insert the \n after the {
 		ast.initialInsertionAfter.append(nl);
 		// set new insertion point after \n

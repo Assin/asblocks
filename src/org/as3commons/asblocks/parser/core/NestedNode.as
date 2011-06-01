@@ -20,6 +20,7 @@
 package org.as3commons.asblocks.parser.core
 {
 
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 import org.as3commons.asblocks.parser.api.ITokenListUpdateDelegate;
 import org.as3commons.asblocks.utils.ASTUtil;
@@ -422,7 +423,7 @@ public class NestedNode
 	/**
 	 * @copy org.as3commons.as3parser.api.IParserNode#addTokenAt()
 	 */
-	public function addTokenAt(token:LinkedListToken, index:int):void
+	public function addTokenAt(token:ILinkedListToken, index:int):void
 	{
 		tokenListUpdater.addToken(IParserNode(this), index, token);
 	}
@@ -430,7 +431,7 @@ public class NestedNode
 	/**
 	 * @copy org.as3commons.as3parser.api.IParserNode#appendToken()
 	 */
-	public function appendToken(token:LinkedListToken):void
+	public function appendToken(token:ILinkedListToken):void
 	{
 		if (!noUpdate && tokenListUpdater)
 		{

@@ -23,8 +23,8 @@ package org.as3commons.asblocks.impl
 import org.as3commons.asblocks.api.IExpression;
 import org.as3commons.asblocks.api.ISuperStatement;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.utils.ArgumentUtil;
 
 /**
@@ -69,7 +69,7 @@ public class SuperStatementNode extends ScriptNode implements ISuperStatement
 		}
 		else
 		{
-			var dot:LinkedListToken = TokenBuilder.newDot();
+			var dot:ILinkedListToken = TokenBuilder.newDot();
 			ast.startToken.prepend(dot);
 			ast.startToken = dot;
 			ast.setChildAt(value.node, 0);

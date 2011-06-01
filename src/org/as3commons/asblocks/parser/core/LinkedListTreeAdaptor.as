@@ -3,6 +3,7 @@ package org.as3commons.asblocks.parser.core
 
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
 import org.as3commons.asblocks.parser.api.ASDocNodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
 
 public class LinkedListTreeAdaptor
@@ -25,9 +26,9 @@ public class LinkedListTreeAdaptor
 	public function createToken(kind:String, 
 								text:String = null,
 								line:int = -1, 
-								column:int = -1):LinkedListToken 
+								column:int = -1):ILinkedListToken 
 	{
-		var token:LinkedListToken = new LinkedListToken(kind, text);
+		var token:ILinkedListToken = new LinkedListToken(kind, text);
 		if (kind == AS3NodeKind.SPACE 
 			|| kind == AS3NodeKind.TAB 
 			|| kind == AS3NodeKind.NL
@@ -42,7 +43,7 @@ public class LinkedListTreeAdaptor
 	
 	public function empty(kind:String, token:Token):TokenNode 
 	{
-		var result:LinkedListToken = new LinkedListToken(kind, null);
+		var result:ILinkedListToken = new LinkedListToken(kind, null);
 		result.line = token.line;
 		result.column = token.column;
 		var node:TokenNode = createNode(result);
@@ -51,7 +52,7 @@ public class LinkedListTreeAdaptor
 	
 	public function copy(kind:String, token:Token):TokenNode 
 	{
-		var result:LinkedListToken = new LinkedListToken(kind, token.text);
+		var result:ILinkedListToken = new LinkedListToken(kind, token.text);
 		result.line = token.line;
 		result.column = token.column;
 		var node:TokenNode = createNode(result);
@@ -63,14 +64,14 @@ public class LinkedListTreeAdaptor
 						   line:int = -1, 
 						   column:int = -1):TokenNode 
 	{
-		var token:LinkedListToken = new LinkedListToken(kind, text);
+		var token:ILinkedListToken = new LinkedListToken(kind, text);
 		token.line = line;
 		token.column = column;
 		var node:TokenNode = createNode(token);
 		return node;
 	}
 	
-	public function createNode(payload:LinkedListToken):TokenNode 
+	public function createNode(payload:ILinkedListToken):TokenNode 
 	{
 		//parenDelegate = new ParentheticListUpdateDelegate(AS3NodeKind.LPAREN, AS3NodeKind.RPAREN);
 //		curlyDelegate = new ParentheticListUpdateDelegate(AS3NodeKind.LCURLY, AS3NodeKind.RCURLY);
@@ -118,10 +119,10 @@ public class LinkedListTreeAdaptor
 			TokenNode(result).tokenListUpdater = cdataDelegate;
 		}
 		
-		if (payload is LinkedListToken) 
+		if (payload is ILinkedListToken) 
 		{
-			result.startToken = LinkedListToken(payload);
-			result.stopToken = LinkedListToken(payload);
+			result.startToken = ILinkedListToken(payload);
+			result.stopToken = ILinkedListToken(payload);
 		}
 		
 		return result;

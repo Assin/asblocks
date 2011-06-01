@@ -25,8 +25,8 @@ import org.as3commons.asblocks.impl.ASTBuilder;
 import org.as3commons.asblocks.impl.MetaDataNode;
 import org.as3commons.asblocks.impl.TokenBuilder;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.impl.ASTIterator;
 
 /**
@@ -67,7 +67,7 @@ public class MetaDataUtil
 		}
 		
 		var indent:String = ASTUtil.findIndent(ast);
-		var indentTok:LinkedListToken = TokenBuilder.newWhiteSpace(indent);
+		var indentTok:ILinkedListToken = TokenBuilder.newWhiteSpace(indent);
 		
 		if (ast.startToken.kind == "nl")
 		{

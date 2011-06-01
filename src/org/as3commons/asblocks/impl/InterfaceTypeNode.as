@@ -24,8 +24,8 @@ import org.as3commons.asblocks.api.IInterfaceType;
 import org.as3commons.asblocks.api.IMethod;
 import org.as3commons.asblocks.api.Visibility;
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
+import org.as3commons.asblocks.parser.api.ILinkedListToken;
 import org.as3commons.asblocks.parser.api.IParserNode;
-import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.parser.impl.AS3FragmentParser;
 import org.as3commons.asblocks.parser.impl.ASTIterator;
 import org.as3commons.asblocks.utils.ASTUtil;
@@ -158,7 +158,7 @@ public class InterfaceTypeNode extends TypeNode implements IInterfaceType
 			i.find(AS3NodeKind.CONTENT);
 			i.insertBeforeCurrent(extndz);
 			// adds a space before the 'implements' keyword
-			var space:LinkedListToken = TokenBuilder.newSpace();
+			var space:ILinkedListToken = TokenBuilder.newSpace();
 			extndz.startToken.prepend(space);
 		}
 		else
@@ -193,7 +193,7 @@ public class InterfaceTypeNode extends TypeNode implements IInterfaceType
 				}
 				else if (count == 0)
 				{
-					var previous:LinkedListToken = extndz.startToken.previous;
+					var previous:ILinkedListToken = extndz.startToken.previous;
 					node.removeChild(extndz);
 					// Hack, I can't figure out how to remove both spaces
 					ASTUtil.collapseWhitespace(previous)
