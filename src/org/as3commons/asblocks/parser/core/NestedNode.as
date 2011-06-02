@@ -56,7 +56,7 @@ public class NestedNode
 	private var _parent:IParserNode;
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#parent
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#parent
 	 */
 	public function get parent():IParserNode
 	{
@@ -81,7 +81,7 @@ public class NestedNode
 	private var _kind:String;
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#kind
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#kind
 	 */
 	public function get kind():String
 	{
@@ -106,7 +106,7 @@ public class NestedNode
 	private var _children:Vector.<IParserNode>;
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#children
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#children
 	 */
 	public function get children():Vector.<IParserNode>
 	{
@@ -118,7 +118,7 @@ public class NestedNode
 	//----------------------------------
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#numChildren
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#numChildren
 	 */
 	public function get numChildren():int
 	{
@@ -143,7 +143,10 @@ public class NestedNode
 	{
 		_kind = kind;
 		
-		addChild(child);
+		if (child)
+		{
+			addChild(child);
+		}
 	}
 	
 	//--------------------------------------------------------------------------
@@ -153,7 +156,7 @@ public class NestedNode
 	//--------------------------------------------------------------------------
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#contains()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#contains()
 	 */
 	public function contains(node:IParserNode):Boolean
 	{
@@ -176,7 +179,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#isKind()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#isKind()
 	 */
 	public function isKind(kind:String):Boolean
 	{
@@ -186,7 +189,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#hasKind()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#hasKind()
 	 */
 	public function hasKind(kind:String):Boolean
 	{
@@ -204,7 +207,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#getChild()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#getChild()
 	 */
 	public function getChild(index:int):IParserNode
 	{
@@ -216,8 +219,9 @@ public class NestedNode
 		
 		return _children[index];
 	}
+	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#getChildIndex()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#getChildIndex()
 	 */
 	public function getChildIndex(child:IParserNode):int
 	{
@@ -235,7 +239,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#getKind()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#getKind()
 	 */
 	public function getKind(kind:String):IParserNode
 	{
@@ -253,7 +257,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#getFirstChild()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#getFirstChild()
 	 */
 	public function getFirstChild():IParserNode
 	{
@@ -264,7 +268,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#getLastChild()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#getLastChild()
 	 */
 	public function getLastChild():IParserNode
 	{
@@ -275,7 +279,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#addChild()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#addChild()
 	 */
 	public function addChild(child:IParserNode):IParserNode
 	{
@@ -299,7 +303,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#addChildAt()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#addChildAt()
 	 */
 	public function addChildAt(child:IParserNode, index:int):IParserNode
 	{
@@ -326,7 +330,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#removeKind()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#removeKind()
 	 */
 	public function removeKind(kind:String):Boolean
 	{
@@ -347,7 +351,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#removeChild()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#removeChild()
 	 */
 	public function removeChild(node:IParserNode):IParserNode
 	{
@@ -374,7 +378,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#removeChildAt()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#removeChildAt()
 	 */
 	public function removeChildAt(index:int):IParserNode
 	{
@@ -394,7 +398,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#setChildAt()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#setChildAt()
 	 */
 	public function setChildAt(child:IParserNode, index:int):IParserNode
 	{
@@ -421,7 +425,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#addTokenAt()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#addTokenAt()
 	 */
 	public function addTokenAt(token:ILinkedListToken, index:int):void
 	{
@@ -429,7 +433,7 @@ public class NestedNode
 	}
 	
 	/**
-	 * @copy org.as3commons.as3parser.api.IParserNode#appendToken()
+	 * @copy org.as3commons.asblocks.parser.api.IParserNode#appendToken()
 	 */
 	public function appendToken(token:ILinkedListToken):void
 	{

@@ -2,6 +2,7 @@ package testSuites
 {
 
 import org.as3commons.asblocks.parser.core.TestLinkedListToken;
+import org.as3commons.asblocks.parser.core.TestNestedNode;
 import org.as3commons.asblocks.parser.core.TestSourceCode;
 import org.as3commons.asblocks.parser.impl.TestAS3FragmentParser;
 import org.as3commons.asblocks.parser.impl.TestAS3Scanner;
@@ -34,6 +35,8 @@ public class AS3ParserTestSuite
 	public var testLinkedListToken:TestLinkedListToken;
 	
 	public var testSourceCode:TestSourceCode;
+	
+	public var testNestedNode:TestNestedNode;
 	
 	// TestAS3Parser
 	public var testAS3FragmentParser:TestAS3FragmentParser;
