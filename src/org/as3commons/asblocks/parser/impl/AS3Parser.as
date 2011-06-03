@@ -1089,7 +1089,7 @@ public class AS3Parser extends ParserBase
 			|| tokIs(Operators.BXOR_ASSIGN) || tokIs(Operators.BOR_ASSIGN)
 			|| tokIs(Operators.LAND_ASSIGN) || tokIs(Operators.LOR_ASSIGN))
 		{
-			result.addChild(adapter.copy(AS3ParserMap.assignment.getValue(token.text), token));
+			result.addChild(adapter.copy(AS3ParserMap.assignment.itemFor(token.text), token));
 			nextTokenConsume(result);
 			result.addChild(parseExpression());
 		}
@@ -1206,7 +1206,7 @@ public class AS3Parser extends ParserBase
 		while (tokIs(Operators.EQUAL) || tokIs(Operators.NOT_EQUAL)
 			|| tokIs(Operators.STRICT_EQUAL) || tokIs(Operators.STRICT_NOT_EQUAL))
 		{
-			result.addChild(adapter.copy(AS3ParserMap.equality.getValue(token.text), token));
+			result.addChild(adapter.copy(AS3ParserMap.equality.itemFor(token.text), token));
 			nextTokenConsume(result);
 			result.addChild(parseRelationalExpression());
 		}
@@ -1226,7 +1226,7 @@ public class AS3Parser extends ParserBase
 			|| tokIs(KeyWords.IS) || tokIs(KeyWords.AS) 
 			|| tokIs(KeyWords.INSTANCE_OF))
 		{
-			result.addChild(adapter.copy(AS3ParserMap.relation.getValue(token.text), token));
+			result.addChild(adapter.copy(AS3ParserMap.relation.itemFor(token.text), token));
 			nextTokenConsume(result);
 			result.addChild(parseShiftExpression());
 		}
@@ -1243,7 +1243,7 @@ public class AS3Parser extends ParserBase
 		while (tokIs(Operators.SL) || tokIs(Operators.SR)
 			|| tokIs(Operators.SSL) || tokIs(Operators.BSR))
 		{
-			result.addChild(adapter.copy(AS3ParserMap.shift.getValue(token.text), token));
+			result.addChild(adapter.copy(AS3ParserMap.shift.itemFor(token.text), token));
 			nextTokenConsume(result);
 			result.addChild(parseAdditiveExpression());
 		}
@@ -1259,7 +1259,7 @@ public class AS3Parser extends ParserBase
 		result.addChild(parseMultiplicativeExpression());
 		while (tokIs(Operators.PLUS) || tokIs(Operators.MINUS))
 		{
-			result.addChild(adapter.copy(AS3ParserMap.additive.getValue(token.text), token));
+			result.addChild(adapter.copy(AS3ParserMap.additive.itemFor(token.text), token));
 			nextTokenConsume(result);
 			result.addChild(parseMultiplicativeExpression());
 		}
@@ -1279,7 +1279,7 @@ public class AS3Parser extends ParserBase
 			|| tokIs(Operators.DIV) 
 			|| tokIs(Operators.MOD))
 		{
-			result.addChild(adapter.copy(AS3ParserMap.multiplicative.getValue(token.text), token));
+			result.addChild(adapter.copy(AS3ParserMap.multiplicative.itemFor(token.text), token));
 			nextTokenConsume(result);
 			result.addChild(parseUnaryExpression(result));
 		}

@@ -201,23 +201,23 @@ public class ASTExpressionBuilder
 	
 	public static function newBinaryAST(op:ILinkedListToken):IParserNode
 	{
-		if (AS3ParserMap.additive.containsValue(op.kind))
+		if (AS3ParserMap.additive.has(op.kind))
 		{
 			return ASTBuilder.newAST(AS3NodeKind.ADDITIVE);
 		}
-		else if (AS3ParserMap.equality.containsValue(op.kind))
+		else if (AS3ParserMap.equality.has(op.kind))
 		{
 			return ASTBuilder.newAST(AS3NodeKind.EQUALITY);
 		}
-		else if (AS3ParserMap.relation.containsValue(op.kind))
+		else if (AS3ParserMap.relation.has(op.kind))
 		{
 			return ASTBuilder.newAST(AS3NodeKind.RELATIONAL);
 		}
-		else if (AS3ParserMap.shift.containsValue(op.kind))
+		else if (AS3ParserMap.shift.has(op.kind))
 		{
 			return ASTBuilder.newAST(AS3NodeKind.SHIFT);
 		}
-		else if (AS3ParserMap.multiplicative.containsValue(op.kind))
+		else if (AS3ParserMap.multiplicative.has(op.kind))
 		{
 			return ASTBuilder.newAST(AS3NodeKind.MULTIPLICATIVE);
 		}

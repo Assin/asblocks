@@ -20,15 +20,14 @@
 package org.as3commons.asblocks.api
 {
 
-import com.ericfeminella.collections.HashMap;
-import com.ericfeminella.collections.IMap;
-
 import flash.errors.IllegalOperationError;
 
 import org.as3commons.asblocks.parser.api.AS3NodeKind;
 import org.as3commons.asblocks.parser.api.IToken;
 import org.as3commons.asblocks.parser.core.LinkedListToken;
 import org.as3commons.asblocks.utils.ASTUtil;
+import org.as3commons.collections.Map;
+import org.as3commons.collections.framework.IMap;
 
 /**
  * Prefix operators.
@@ -39,9 +38,9 @@ import org.as3commons.asblocks.utils.ASTUtil;
  */
 public final class PrefixOperator
 {
-	private static var OPERATORS_BY_TYPE:IMap = new HashMap();
+	private static var OPERATORS_BY_TYPE:IMap = new Map();
 	
-	private static var TYPES_BY_OPERATOR:IMap = new HashMap();
+	private static var TYPES_BY_OPERATOR:IMap = new Map();
 	
 	//--------------------------------------------------------------------------
 	//
@@ -70,8 +69,8 @@ public final class PrefixOperator
 	
 	private static function mapOp(kind:String, text:String, operator:PrefixOperator):void
 	{
-		OPERATORS_BY_TYPE.put(kind, operator);
-		TYPES_BY_OPERATOR.put(operator, new LinkedListToken(kind, text));
+		OPERATORS_BY_TYPE.add(kind, operator);
+		TYPES_BY_OPERATOR.add(operator, new LinkedListToken(kind, text));
 	}
 	
 	//--------------------------------------------------------------------------
@@ -157,7 +156,7 @@ public final class PrefixOperator
 			initialize();
 		}
 		
-		var op:PrefixOperator = OPERATORS_BY_TYPE.getValue(kind);
+		var op:PrefixOperator = OPERATORS_BY_TYPE.itemFor(kind);
 		if (op == null) 
 		{
 			throw new IllegalOperationError("No operator for token-type '" + 
@@ -173,7 +172,7 @@ public final class PrefixOperator
 			initialize();
 		}
 		
-		var type:LinkedListToken = TYPES_BY_OPERATOR.getValue(operator);
+		var type:LinkedListToken = TYPES_BY_OPERATOR.itemFor(operator);
 		if (type == null) 
 		{
 			throw new IllegalOperationError("No operator for Op " + operator);
